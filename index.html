@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html>
+<script src='https://d3js.org/d3.v5.min.js'></script>
 <body>
 <h1>China's growth in numbers</h1>
 <p>Interactive visualization using World Development Indicator data.</p>
 </body>
+
+<script>
+    d3.csv("employees.csv", function(data) {
+        for (var i = 0; i < data.length; i++) {
+            console.log(data[i].Name);
+            console.log(data[i].Age);
+        }
+    });
+    </script>
 </html>
