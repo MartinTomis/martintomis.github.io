@@ -3,7 +3,37 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <body>
 <h1>China's growth in numbers</h1>
-<p>Interactive visualization using World Development Indicator data - data from URL.</p>
+<p>Interactive visualization using World Development Indicator data - data from URL 2.0.</p>
+
+
+<div class="topnav">
+    <a class="active" href="#home">Home</a>
+    <a href="scripts/page1.html">Page1</a>
+    <a href="#contact">Contact</a>
+    <a href="#about">About</a>
+</div>
+
+
+
+<svg width=300 height=300>
+</svg>
+<script>
+var data = [4,8,15,16,23,42];
+var color = ['pink','lightyellow','lightgreen','lightcyan','lightblue','violet'];
+var pie = d3.pie();
+var arc = d3.arc().innerRadius(0).outerRadius(100);
+
+var margin = 150
+d3.select("svg").append("g").attr("transform", "translate("+margin+","+margin+")").selectAll("path").data(pie(data)).enter().append("path").attr("d",arc).attr("fill", function(d,i){return color[i];})
+
+
+
+
+
+
+</script>
+
+
 </body>
 
 
