@@ -3,11 +3,6 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <body>
 <h1>China's growth in numbers</h1>
-<h3>Population</h3>
-<p>China's population was growing very fast in 1950-1970s, increasing from 544 mil. in 1950 to 982 mil. in 1980. 
-    While the population growth policies substantially reduced subsequent growth, the large increases from 1950s to 1970s were reflected in increased productive workforce once the new-borns grew up. </p>
-
-
 
 <div class="topnav">
     <a class="active" href="../index.html">Home</a>
@@ -15,6 +10,24 @@
     <a href="economy.html">Economy</a>
     <a href="military.html">Military</a>
 </div>
+<h3>Population</h3>
+<p>China's population was growing very fast in 1950-1970s, increasing from 544 mil. in 1950 to 982 mil. in 1980. 
+    While the population growth policies substantially reduced subsequent growth, the large increases from 1950s to 1970s were reflected in increased productive workforce once the new-borns grew up. Nevertheless, the population has started to plateau in the 2020s. </p>
+
+<p>During the whole period, China has maintained a substantial lead over US and USSR. What is remarkable is the substantial decrease in population of the world largest country by area - driven primarily by a break-up of USSR and subsequent stagnating population of Russia. </p>
+    
+<p>On the other hand, US population has been steadily growing, partly due to higher than average fertility rates (for a highly-developed country) and due to immigration. </p>
+
+<h4>Data source</h4>
+<p> The data for China, US and Russia are from <a href=https://ourworldindata.org/explorers/population-and-demography?time=earliest..2020&facet=none&Metric=Population&Sex=Both+sexes&Age+group=Total&Projection+Scenario=High&country=CHN~USA~RUS
+    >Our World In Data publication</a>. Data for USSR are from <a href=https://en.wikipedia.org/wiki/Demographics_of_the_Soviet_Union
+    >Wikipedia</a>. </p>
+    
+       
+
+
+
+
 
 <svg width="800" height="400"></svg>
 
@@ -37,7 +50,15 @@ var dataset2 = [
             [2005, 296.8], [2010, 311.2], [2015, 324.6],
             [2020, 335.9]
         ];
-       
+   
+var dataset3 = [
+[1951,182.3], 
+            [1959, 209], [1970,241.7],
+            [1977, 257.8], [1982, 270.0], [1985, 277.8],
+            [1990, 290.9], [1995, 148.6], [2000, 146.8],
+            [2005, 143.8], [2010, 143.2], [2015, 144.7],
+            [2020, 145.6]
+        ];       
 
 
 // Step 3 - set margin
@@ -126,16 +147,25 @@ var line = d3.line()
         .style("stroke", "#0000FF")
         .style("stroke-width", "2");
 
+        svg.append("path")
+        .datum(dataset3) 
+        .attr("class", "line") 
+        .attr("transform", "translate(" + 100 + "," + 100 + ")")
+        .attr("d", line)
+        .style("fill", "none")
+        .style("stroke", "#000000")
+        .style("stroke-width", "2");
+
 // Legend
 
-var legend_keys = ["China", "USA"]
-var colors = ["#CC0000", "#0000FF"]
+var legend_keys = ["China", "USA", "USSR/RU"]
+var colors = ["#CC0000", "#0000FF", "#000000"]
 
 var lineLegend = svg.selectAll(".lineLegend").data(legend_keys)
     .enter().append("g")
     .attr("class","lineLegend")
     .attr("transform", function (d,i) {
-            return "translate(" + (width +120) + "," + (i*20 + 200)+")";
+            return "translate(" + (width +110) + "," + (i*20 + 200)+")";
         });
 
 lineLegend.append("text").text(function (d) {return d;})
@@ -144,7 +174,6 @@ lineLegend.append("text").text(function (d) {return d;})
 lineLegend.append("rect")
     .attr("fill", function (d, i) {return colors[i]; })
     .attr("width", 10).attr("height", 10);
-
 
 </script>
 

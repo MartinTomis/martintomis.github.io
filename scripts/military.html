@@ -3,19 +3,27 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <body>
 <h1>China's growth in numbers</h1>
+<div class="topnav">
+        <a class="active" href="../index.html">Home</a>
+        <a href="population.html">Population</a>
+        <a href="economy.html">Economy</a>
+        <a href="military.html">Military</a>
+    </div>
+    
 <h3>Military</h3>
-<p> Although data prior to 1989 are not publicly known, it is clear that China is becoming a military superpower, when measured by military spending. The spending has increased over 10-fold between 1990 and 2020 (in inflation-adjusted dolars). 
+<p> Although data prior to 1989 are not publicly known, it is clear that China is becoming a military superpower, when measured by military spending. The spending has increased over 10-fold between 1990 and 2020 (in inflation-adjusted dolars). Currently China has the 2nd largest military budget in the world, after the United States. 
     
 </p>
 
+<p>US military budget has also been growing over long term, but at a much slower rate and it has been more fluctuating. After a end of the Cold War around 1990, it has been decreasing till 2001. A subsequent shar increase is likely due to a response to 9/11. Compared to China, US is maintaining a steady edge, when measured in USD at an international FX rate. The difference would be substantially reduced if Purchasing-Power Parity was used instead.</p>
 
+<p> A remarkable trend is displayed by USSR/Russia. In what may be the best indicator of the "end of Bi-polar World", Soviet/Russian military budget dropped 10-fold between 1990 and 1995, primarily due to disasterous economic situation in Russia in the 1990s. </p>
 
-<div class="topnav">
-    <a class="active" href="../index.html">Home</a>
-    <a href="population.html">Population</a>
-    <a href="economy.html">Economy</a>
-    <a href="military.html">Military</a>
-</div>
+<h4>Data source</h4>
+<p> The data are from <a href=https://ourworldindata.org/grapher/military-expenditure-total?tab=chart&country=USA~RUS~CHN
+    >Our World In Data publication</a>. Though the source does not state that explicitly, it is likely that the 1990 value for RU/USSR corresponds to the entire USSR military budget. </p>
+    
+
 
 <svg width="800" height="400"></svg>
 
@@ -37,6 +45,13 @@ var dataset2 = [
             [2020, 766.6]
         ];
        
+var dataset3 = [
+
+            [1990, 220.5], [1995, 25.6], [2000, 23.6],
+            [2005, 35.2], [2010, 49.8], [2015, 74.6],
+            [2020, 66.8]
+        ];
+              
 
 
 // Step 3 - set margin
@@ -125,16 +140,25 @@ var line = d3.line()
         .style("stroke", "#0000FF")
         .style("stroke-width", "2");
 
+        svg.append("path")
+        .datum(dataset3) 
+        .attr("class", "line") 
+        .attr("transform", "translate(" + 100 + "," + 100 + ")")
+        .attr("d", line)
+        .style("fill", "none")
+        .style("stroke", "#000000")
+        .style("stroke-width", "2");
+
 // Legend
 
-var legend_keys = ["China", "USA"]
-var colors = ["#CC0000", "#0000FF"]
+var legend_keys = ["China", "USA", "USSR/RU"]
+var colors = ["#CC0000", "#0000FF", "#000000"]
 
 var lineLegend = svg.selectAll(".lineLegend").data(legend_keys)
     .enter().append("g")
     .attr("class","lineLegend")
     .attr("transform", function (d,i) {
-            return "translate(" + (width +120) + "," + (i*20 + 200)+")";
+            return "translate(" + (width +110) + "," + (i*20 + 200)+")";
         });
 
 lineLegend.append("text").text(function (d) {return d;})

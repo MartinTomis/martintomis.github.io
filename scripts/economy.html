@@ -3,12 +3,6 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <body>
 <h1>China's growth in numbers</h1>
-<h3>Economy</h3>
-<p>During the 1950s and 1960s, series of disasterous economic policies led to widespread famines and economic dislocation - even decreasing per-capita GDP between 1955 and 1965. However, starting from 1978, a series of economic reforms led to large productivity gains. 
-    As a result, the Chinese GDP per capita increased from around 5% of the American one in 1950s to almost 25% in 2018. </p>
-
-
-
 <div class="topnav">
     <a class="active" href="../index.html">Home</a>
     <a href="population.html">Population</a>
@@ -16,7 +10,21 @@
     <a href="military.html">Military</a>
 </div>
 
-<svg width="800" height="400"></svg>
+<h3>Economy</h3>
+<p>During the 1950s and 1960s, series of disasterous economic policies led to widespread famines and economic dislocation - even decreasing per-capita GDP between 1955 and 1965. However, starting from 1978, a series of economic reforms led to large productivity gains and quickly rising GDP per capita. 
+    As a result, the Chinese GDP per capita increased from around 5% of the American one in 1950s to almost 25% in 2018. </p>
+
+
+<p> In another indicator of a substantially weakening role of Russia/USSR, Russian incomes decreased notable after the break-up of the Sovier Union, before increasing again from 2000 - largely due to increasing commodity prices, driven predominantly by fast-growing China. </p>
+
+<h4>Data source</h4>
+<p> The data are from <a href=https://ourworldindata.org/grapher/gdp-per-capita-maddison-2020?time=1949..2018&country=USA~CHN~RUS
+    >Our World In Data publication</a>. Though the source does not state that explicitly, it is likely that the 1990 value for RU/USSR corresponds to the USSR per capita income. </p>
+    
+
+
+
+<svg width="850" height="400"></svg>
 
 <script>
 
@@ -38,7 +46,15 @@ var dataset2 = [
             [2018, 55334.73828125]
         ];
        
+var dataset3 = [
 
+            [1960, 5557], [1965,7068], [1970,9234],
+            [1975, 11164], [1980, 12204], [1985, 12475],
+            [1990, 12400], [1995, 8586], [2000, 10552.884765625],
+            [2005, 16243.1], [2010, 16243.1], [2015, 23691],
+            [2018, 24668.9]
+        ];
+       
 
 // Step 3 - set margin
 
@@ -59,7 +75,7 @@ d3.select("svg").append('text')
 .attr('text-anchor', 'middle')
 .style('font-family', 'Helvetica')
 .style('font-size', 20)
-.text('GDP per capita - international FX rate');
+.text('GDP per capita - adjusted for cost of living');
         
 // X label
 d3.select("svg").append('text')
@@ -126,16 +142,25 @@ var line = d3.line()
         .style("stroke", "#0000FF")
         .style("stroke-width", "2");
 
+        svg.append("path")
+        .datum(dataset3) 
+        .attr("class", "line") 
+        .attr("transform", "translate(" + 100 + "," + 100 + ")")
+        .attr("d", line)
+        .style("fill", "none")
+        .style("stroke", "#000000")
+        .style("stroke-width", "2");
+
 // Legend
 
-var legend_keys = ["China", "USA"]
-var colors = ["#CC0000", "#0000FF"]
+var legend_keys = ["China", "USA", "USSR/RU"]
+var colors = ["#CC0000", "#0000FF", "#000000"]
 
 var lineLegend = svg.selectAll(".lineLegend").data(legend_keys)
     .enter().append("g")
     .attr("class","lineLegend")
     .attr("transform", function (d,i) {
-            return "translate(" + (width +120) + "," + (i*20 + 200)+")";
+            return "translate(" + (width +110) + "," + (i*20 + 200)+")";
         });
 
 lineLegend.append("text").text(function (d) {return d;})
